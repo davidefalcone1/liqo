@@ -1,3 +1,5 @@
+{{- $advertisementConfig := (merge (dict "name" "advertisement" "module" "sharing-protocol") .) -}}
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -14,7 +16,7 @@ spec:
       protocol: TCP
       targetPort: 8090
   selector:
-    run: advertisement-operator
+  {{- include "liqo.selectorLabels" $advertisementConfig | nindent 4 }}
   sessionAffinity: None
   type: ClusterIP
 

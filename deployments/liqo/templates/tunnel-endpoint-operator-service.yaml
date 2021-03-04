@@ -1,3 +1,5 @@
+{{- $netManagerConfig := (merge (dict "name" "network-manager" "module" "networking") .) -}}
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -14,7 +16,7 @@ spec:
       targetPort: 8090
       name: metrics
   selector:
-    run: tunnelendpointcreator-operator
+  {{- include "liqo.selectorLabels" $netManagerConfig | nindent 4 }}
   sessionAffinity: None
   type: ClusterIP
 

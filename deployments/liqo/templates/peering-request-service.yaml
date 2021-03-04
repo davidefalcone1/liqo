@@ -1,3 +1,5 @@
+{{- $peeringRequest := (merge (dict "name" "peering-request" "module" "discovery") .) -}}
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -18,7 +20,7 @@ spec:
       protocol: TCP
       targetPort: 8090
   selector:
-    run: peering-request-operator
+  {{- include "liqo.selectorLabels" $peeringRequest | nindent 4 }}
   sessionAffinity: None
   type: ClusterIP
 
